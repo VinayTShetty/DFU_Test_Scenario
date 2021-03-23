@@ -1,5 +1,4 @@
 package com.otaTest.Fragments;
-
 import android.Manifest;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
