@@ -1,8 +1,11 @@
-package com.otaTest;
+package com.otaTest.Service;
 
 import android.app.Activity;
 
 import androidx.annotation.Nullable;
+
+
+import com.otaTest.MainActivity;
 
 import no.nordicsemi.android.dfu.DfuBaseService;
 

@@ -20,7 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".DfuService"></service>
+        <service
+            android:name=".Service.BluetoothLeService"
+            android:enabled="true" />
     </application>
 
 </manifest>

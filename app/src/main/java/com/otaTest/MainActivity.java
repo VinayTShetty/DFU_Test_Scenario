@@ -7,27 +7,35 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import com.otaTest.Service.BluetoothLeService;
+import com.otaTest.Service.DfuService;
 
 import no.nordicsemi.android.dfu.DfuProgressListener;
 import no.nordicsemi.android.dfu.DfuServiceInitiator;
 import no.nordicsemi.android.dfu.DfuServiceListenerHelper;
 
 public class MainActivity extends AppCompatActivity {
-
     Button btn_dfuPdate,btn_fielSelection;
+    public static final String TAG=MainActivity.class.getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         btn_dfuPdate=(Button)findViewById(R.id.dfuUpdate);
         btn_fielSelection=(Button)findViewById(R.id.fileSelection);
+        bindBleServiceToMainActivity();;
         btn_dfuPdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
         btn_fielSelection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,9 +53,28 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
+
+    /**
+     * Code to manage Service life Cycle.
+     */
+    public BluetoothLeService mBluetoothLeService;
+    private final ServiceConnection serviceConnection=new ServiceConnection() {
+        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            mBluetoothLeService = ((BluetoothLeService.LocalBinder) service).getService();
+            if (!mBluetoothLeService.initialize()) {
+                finish();
+            }
+            // mBluetoothLeService.connect(mDeviceAddress);
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            mBluetoothLeService = null;
+        }
+    };
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     @Override
     protected void onResume() {
@@ -62,7 +88,20 @@ public class MainActivity extends AppCompatActivity {
         DfuServiceListenerHelper.unregisterProgressListener(this, dfuProgressListener);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbindService(serviceConnection);
+        mBluetoothLeService = null;
+    }
+
+    private void bindBleServiceToMainActivity(){
+        Intent intent = new Intent(this, BluetoothLeService.class);
+        bindService(intent, serviceConnection, BIND_AUTO_CREATE);
+    }
+
     public void dfuupdate(){
+        Log.d(TAG, "dfuupdate: ");
         final DfuServiceInitiator starter = new DfuServiceInitiator("C2:81:CF:7F:8C:1F")
                 .setForeground(false)
                 .setDeviceName("Succorfish SC2");
