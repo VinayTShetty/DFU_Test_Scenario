@@ -70,7 +70,7 @@ public class FragmentScanAdapter extends RecyclerView.Adapter<FragmentScanAdapte
             }else if(!(custBluetootDevices.isConnected())){
                 connectButton_button.setText("Connecet");
                 connectButton_button.setTextColor(context.getResources().getColor(R.color.disconnect_color));
-                ota_update_button.setVisibility(View.GONE);
+                ota_update_button.setVisibility(View.VISIBLE);
             }
 
             scanItemViewHolder.connectButton_button.setOnClickListener(new View.OnClickListener() {
