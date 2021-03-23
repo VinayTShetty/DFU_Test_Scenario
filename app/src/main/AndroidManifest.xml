@@ -23,6 +23,9 @@
         <service
             android:name=".Service.BluetoothLeService"
             android:enabled="true" />
+        <service android:name=".Service.DfuService">
+
+        </service>
     </application>
 
 </manifest>

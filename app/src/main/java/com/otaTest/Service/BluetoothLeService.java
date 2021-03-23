@@ -27,8 +27,8 @@ import java.util.List;
 import java.util.UUID;
 
 import static com.otaTest.UUID.FirmwareUUID.CLIENT_CHARACTERISTIC_CONFIG;
-import static com.otaTest.UUID.FirmwareUUID.GEO_FENCE_CHARCTERSTICS_UUID;
-import static com.otaTest.UUID.FirmwareUUID.GEO_FENCE_SERVICE_UUID;
+import static com.otaTest.UUID.FirmwareUUID.CHARCTERSTICS_UUID;
+import static com.otaTest.UUID.FirmwareUUID.SERVICE_UUID;
 
 
 public class BluetoothLeService extends Service {
@@ -233,8 +233,8 @@ public class BluetoothLeService extends Service {
      */
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     public  void sendDataToBleDevice(byte [] data){
-        BluetoothGattService service=mBluetoothGatt.getService(GEO_FENCE_SERVICE_UUID);
-        BluetoothGattCharacteristic characteristic= service.getCharacteristic(GEO_FENCE_CHARCTERSTICS_UUID);
+        BluetoothGattService service=mBluetoothGatt.getService(SERVICE_UUID);
+        BluetoothGattCharacteristic characteristic= service.getCharacteristic(CHARCTERSTICS_UUID);
         characteristic.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT);
         characteristic.setValue(data);
         boolean status=false;
@@ -316,8 +316,8 @@ public class BluetoothLeService extends Service {
      */
    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
    private void enableChartersticNotification(BluetoothGatt loc_bluetoothGatt){
-       BluetoothGattService service=loc_bluetoothGatt.getService(GEO_FENCE_SERVICE_UUID);
-       BluetoothGattCharacteristic characteristic= service.getCharacteristic(GEO_FENCE_CHARCTERSTICS_UUID);
+       BluetoothGattService service=loc_bluetoothGatt.getService(SERVICE_UUID);
+       BluetoothGattCharacteristic characteristic= service.getCharacteristic(CHARCTERSTICS_UUID);
        setCharacteristicNotifications(characteristic,true);
    }
 

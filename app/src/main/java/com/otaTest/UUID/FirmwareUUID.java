@@ -3,8 +3,8 @@ package com.otaTest.UUID;
 import java.util.UUID;
 
 public class FirmwareUUID {
-    public static final UUID GEO_FENCE_SERVICE_UUID= UUID.fromString("0000ba00-0143-08b2-a708-e5f9b34fb005");
-    public static final UUID GEO_FENCE_CHARCTERSTICS_UUID=UUID.fromString("0000ba01-0143-08b2-a708-e5f9b34fb005");
+    public static final UUID SERVICE_UUID = UUID.fromString("0000ab00-2687-4433-2208-abf9b34fb000");
+    public static final UUID CHARCTERSTICS_UUID =UUID.fromString("0000ab01-2687-4433-2208-abf9b34fb000");
     /**
      * client chanrcterstic UUID,for enabling the Charcterstic notification.
      */

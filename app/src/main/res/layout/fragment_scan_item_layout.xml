@@ -9,10 +9,12 @@
         android:padding="10dp"
         android:gravity="center_vertical"
         android:layout_width="match_parent"
+        android:orientation="horizontal"
         android:layout_height="wrap_content">
         <ImageView
             android:src="@drawable/bluetooth_icon"
             android:layout_width="20dp"
+            android:layout_gravity="start"
             android:layout_height="20dp" />
         <RelativeLayout
             android:layout_marginLeft="10dp"
@@ -45,6 +47,15 @@
                 android:text="Connect"
                 android:textSize="12dp"
                 android:textAllCaps="false"
+                android:layout_alignParentRight="true">
+            </Button>
+            <Button
+                android:id="@+id/ota_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OTA_UPDATE"
+                android:visibility="gone"
+                android:layout_below="@+id/connect_button"
                 android:layout_alignParentRight="true"
                 >
             </Button>
