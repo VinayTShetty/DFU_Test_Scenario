@@ -149,7 +149,10 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onError(@NonNull String s, int i, int i1, String s1) {
-            System.out.println("DFU_TESTING onError");
+            System.out.println("DFU_TESTING onError s= "+s);
+            System.out.println("DFU_TESTING onError s1= "+s1);
+            System.out.println("DFU_TESTING onError i= "+i);
+            System.out.println("DFU_TESTING onError i1= "+i1);
         }
     };
 
